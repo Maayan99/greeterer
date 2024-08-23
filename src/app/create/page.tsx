@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react';
 import TemplateSelection from '@/components/TemplateSelection';
 import CustomizationSidebar from '@/components/CustomizationSidebar';
