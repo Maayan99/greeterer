@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Draggable from 'react-draggable';
 import { CardElement } from '../types/cardTypes';
-import { FaTrash, FaShare } from 'react-icons/fa';
+import { FaTrash, FaDownload, FaShare } from 'react-icons/fa';
 import html2canvas from 'html2canvas';
 
 interface LivePreviewProps {
@@ -83,31 +83,32 @@ const LivePreview: React.FC<LivePreviewProps> = ({ elements, setElements, select
     return '';
   };
 
+  const handleDownload = async () => {
+    const image = await generateImage();
+    const link = document.createElement('a');
+    link.href = image;
+    link.download = 'business-card.png';
+    link.click();
+  };
+
   const handleShare = async () => {
     const image = await generateImage();
     const websiteLink = 'https://greeterer.vercel.app';
-    const blob = await (await fetch(image)).blob();
-    const file = new File([blob], 'business-card.png', { type: 'image/png' });
 
     if (navigator.share) {
       try {
         await navigator.share({
           title: 'My Business Card',
           text: `Check out my new business card created with ${websiteLink}!`,
-          files: [file],
+          url: image
         });
       } catch (error) {
         console.error('Error sharing:', error);
-        fallbackShare(image, websiteLink);
+        alert('Sharing failed. Please try downloading the image instead.');
       }
     } else {
-      fallbackShare(image, websiteLink);
+      alert('Sharing is not supported on this device. Please try downloading the image instead.');
     }
-  };
-
-  const fallbackShare = (image: string, websiteLink: string) => {
-    const shareUrl = `mailto:?subject=Check out my new business card&body=I created this business card using ${websiteLink}. Here's the image: ${image}`;
-    window.open(shareUrl, '_blank');
   };
 
   return (
@@ -174,10 +175,16 @@ const LivePreview: React.FC<LivePreviewProps> = ({ elements, setElements, select
       )}
       <div className="mt-4 flex justify-between items-center">
         <button
-          onClick={handleShare}
-          className="flex px-6 py-3 bg-purple-600 text-white rounded-full font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out"
+          onClick={handleDownload}
+          className="flex px-4 py-2 bg-blue-600 text-white rounded-full font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out mr-2"
         >
-          <FaShare className="mr-2" /> Share Design
+          <FaDownload className="mr-2" /> Download
+        </button>
+        <button
+          onClick={handleShare}
+          className="flex px-4 py-2 bg-green-600 text-white rounded-full font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out"
+        >
+          <FaShare className="mr-2" /> Share
         </button>
         <div
           ref={trashcanRef}
