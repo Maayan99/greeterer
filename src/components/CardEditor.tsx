@@ -19,7 +19,7 @@ const CardEditor: React.FC<CardEditorProps> = ({
     <div>
       <LivePreview 
         elements={elements} 
-        setElements={(newElements) => {
+        setElements={(newElements: CardElement[]) => {
           newElements.forEach(element => onUpdateElement(element));
         }} 
       />
