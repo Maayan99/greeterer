@@ -157,13 +157,13 @@ const LivePreview: React.FC<LivePreviewProps> = ({ elements, setElements, select
       <div className="mt-4 flex justify-between items-center">
         <button
           onClick={downloadImage}
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-200"
+          className="px-6 py-3 bg-purple-600 text-white rounded-full font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out animate-pulse"
         >
           Save Design
         </button>
         <button
           onClick={shareViaWhatsApp}
-          className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors duration-200 flex items-center"
+          className="px-6 py-3 bg-green-600 text-white rounded-full font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out"
         >
           <FaWhatsapp className="mr-2" /> Share via WhatsApp
         </button>

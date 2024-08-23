@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import TemplateSelection from '@/components/TemplateSelection';
 import CardEditor from '@/components/CardEditor';
-import SaveSendOptions from '@/components/SaveSendOptions';
 import { CardElement, CardTemplate } from '@/types/cardTypes';
 
 export default function CardCreationPage() {
@@ -51,7 +50,6 @@ export default function CardCreationPage() {
             onUpdateElement={handleElementUpdate}
             onAddElement={handleAddElement}
           />
-          <SaveSendOptions />
         </div>
       </div>
     </div>
