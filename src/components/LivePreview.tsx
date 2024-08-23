@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Draggable from 'react-draggable';
 import { CardElement } from '../types/cardTypes';
-import { FaTrash, FaWhatsapp, FaTwitter } from 'react-icons/fa';
+import { FaTrash, FaShare } from 'react-icons/fa';
 import html2canvas from 'html2canvas';
 
 interface LivePreviewProps {
@@ -83,25 +83,31 @@ const LivePreview: React.FC<LivePreviewProps> = ({ elements, setElements, select
     return '';
   };
 
-  const shareViaWhatsApp = async () => {
+  const handleShare = async () => {
     const image = await generateImage();
     const websiteLink = 'https://your-website-url.com';
-    const message = encodeURIComponent(`Check out my new business card! ${websiteLink}`);
-    const whatsappUrl = `https://api.whatsapp.com/send?text=${message}`;
-    
-    // Note: WhatsApp doesn't support direct image sharing via URL. 
-    // We'll open a new window with the message and link instead.
-    window.open(whatsappUrl, '_blank');
+    const blob = await (await fetch(image)).blob();
+    const file = new File([blob], 'business-card.png', { type: 'image/png' });
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'My Business Card',
+          text: `Check out my new business card created with ${websiteLink}!`,
+          files: [file],
+        });
+      } catch (error) {
+        console.error('Error sharing:', error);
+        fallbackShare(image, websiteLink);
+      }
+    } else {
+      fallbackShare(image, websiteLink);
+    }
   };
 
-  const shareViaTwitter = async () => {
-    const image = await generateImage();
-    const websiteLink = 'https://your-website-url.com';
-    const message = encodeURIComponent(`Check out my new business card! ${websiteLink}`);
-    const twitterUrl = `https://twitter.com/intent/tweet?text=${message}`;
-    
-    // Open a new window with the tweet intent
-    window.open(twitterUrl, '_blank');
+  const fallbackShare = (image: string, websiteLink: string) => {
+    const shareUrl = `mailto:?subject=Check out my new business card&body=I created this business card using ${websiteLink}. Here's the image: ${image}`;
+    window.open(shareUrl, '_blank');
   };
 
   return (
@@ -168,16 +174,10 @@ const LivePreview: React.FC<LivePreviewProps> = ({ elements, setElements, select
       )}
       <div className="mt-4 flex justify-between items-center">
         <button
-          onClick={shareViaWhatsApp}
-          className="flex px-6 py-3 bg-green-600 text-white rounded-full font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out"
+          onClick={handleShare}
+          className="flex px-6 py-3 bg-purple-600 text-white rounded-full font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out"
         >
-          <FaWhatsapp className="mr-2" /> Share via WhatsApp
-        </button>
-        <button
-          onClick={shareViaTwitter}
-          className="flex px-6 py-3 bg-blue-400 text-white rounded-full font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out"
-        >
-          <FaTwitter className="mr-2" /> Share via Twitter
+          <FaShare className="mr-2" /> Share Design
         </button>
         <div
           ref={trashcanRef}
