@@ -1,5 +1,5 @@
 import React from 'react';
-import CardTemplate from '../types/cardTypes';
+import { CardTemplate } from '../types/cardTypes';
 import { businessCardTemplates } from '../data/businessCardTemplates';
 
 interface TemplateSelectionProps {
