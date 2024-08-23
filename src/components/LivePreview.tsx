@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Draggable from 'react-draggable';
-import CardElement from '../app/create/page';
+import { CardElement } from '../types/cardTypes';
 
 interface LivePreviewProps {
   elements: CardElement[];
@@ -73,7 +73,9 @@ const LivePreview: React.FC<LivePreviewProps> = ({ elements, setElements }) => {
                   className="bg-transparent resize-none outline-none"
                 />
               )}
-            
+              {element.type === 'svg' && (
+                <div dangerouslySetInnerHTML={{ __html: element.content }} />
+              )}
             </div>
           </Draggable>
         ))}
