@@ -163,7 +163,7 @@ const LivePreview: React.FC<LivePreviewProps> = ({ elements, setElements, select
         </button>
         <button
           onClick={shareViaWhatsApp}
-          className="px-6 py-3 bg-green-600 text-white rounded-full font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out"
+          className="flex px-6 py-3 bg-green-600 text-white rounded-full font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out"
         >
           <FaWhatsapp className="mr-2" /> Share via WhatsApp
         </button>
