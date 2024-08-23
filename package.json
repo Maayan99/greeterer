@@ -13,7 +13,9 @@
     "react-dom": "^18",
     "next": "14.2.5",
     "react-draggable": "^4.4.5",
-    "react-color": "^2.19.3"
+    "react-color": "^2.19.3",
+    "react-icons": "^4.10.1",
+    "html2canvas": "^1.4.1"
   },
   "devDependencies": {
     "typescript": "^5",
