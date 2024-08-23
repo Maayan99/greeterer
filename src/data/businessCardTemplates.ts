@@ -1,6 +1,5 @@
 import { CardTemplate } from '../types/cardTypes';
 
-
 export const businessCardTemplates: CardTemplate[] = [
   {
     id: 'modern-minimal',
@@ -91,6 +90,61 @@ export const businessCardTemplates: CardTemplate[] = [
       <text x="50" y="110" font-family="Arial" font-size="16" fill="#666666">{title}</text>
       <text x="50" y="150" font-family="Arial" font-size="14" fill="#999999">{phone}</text>
       <text x="50" y="170" font-family="Arial" font-size="14" fill="#999999">{email}</text>
+    </svg>`,
+    fields: ['name', 'title', 'phone', 'email']
+  },
+  {
+    id: 'elegant-gradient',
+    name: 'Elegant Gradient',
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200">
+      <defs>
+        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#8E2DE2;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#4A00E0;stop-opacity:1" />
+        </linearGradient>
+      </defs>
+      <rect width="400" height="200" fill="url(#grad1)"/>
+      <rect x="20" y="20" width="360" height="160" fill="#ffffff" opacity="0.9" rx="10" ry="10"/>
+      <text x="40" y="60" font-family="Georgia" font-size="24" fill="#4A00E0">{name}</text>
+      <text x="40" y="90" font-family="Georgia" font-size="16" fill="#8E2DE2">{title}</text>
+      <line x1="40" y1="110" x2="360" y2="110" stroke="#4A00E0" stroke-width="1"/>
+      <text x="40" y="140" font-family="Georgia" font-size="14" fill="#4A00E0">{phone}</text>
+      <text x="40" y="160" font-family="Georgia" font-size="14" fill="#4A00E0">{email}</text>
+      <circle cx="350" cy="50" r="30" fill="#4A00E0" opacity="0.1"/>
+      <circle cx="330" cy="70" r="20" fill="#8E2DE2" opacity="0.1"/>
+    </svg>`,
+    fields: ['name', 'title', 'phone', 'email']
+  },
+  {
+    id: 'modern-line-art',
+    name: 'Modern Line Art',
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200">
+      <rect width="400" height="200" fill="#ffffff"/>
+      <path d="M0,100 Q100,0 200,100 T400,100" fill="none" stroke="#FF6B6B" stroke-width="2"/>
+      <path d="M0,150 Q100,50 200,150 T400,150" fill="none" stroke="#4ECDC4" stroke-width="2"/>
+      <rect x="20" y="20" width="360" height="160" fill="none" stroke="#45B7D1" stroke-width="2" rx="10" ry="10"/>
+      <text x="40" y="60" font-family="Futura" font-size="24" fill="#333333">{name}</text>
+      <text x="40" y="90" font-family="Futura" font-size="16" fill="#666666">{title}</text>
+      <text x="40" y="130" font-family="Futura" font-size="14" fill="#999999">{phone}</text>
+      <text x="40" y="150" font-family="Futura" font-size="14" fill="#999999">{email}</text>
+      <circle cx="350" cy="50" r="30" fill="none" stroke="#FF6B6B" stroke-width="2"/>
+    </svg>`,
+    fields: ['name', 'title', 'phone', 'email']
+  },
+  {
+    id: 'nature-inspired',
+    name: 'Nature Inspired',
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200">
+      <rect width="400" height="200" fill="#E8F3E8"/>
+      <path d="M0,200 Q100,100 200,200 T400,200" fill="#81C784"/>
+      <path d="M300,0 Q350,50 400,0" fill="#4CAF50"/>
+      <circle cx="30" cy="30" r="20" fill="#4CAF50"/>
+      <text x="60" y="35" font-family="Verdana" font-size="16" fill="#1B5E20">ECO</text>
+      <text x="40" y="80" font-family="Verdana" font-size="24" fill="#1B5E20">{name}</text>
+      <text x="40" y="110" font-family="Verdana" font-size="16" fill="#2E7D32">{title}</text>
+      <text x="40" y="140" font-family="Verdana" font-size="14" fill="#388E3C">{phone}</text>
+      <text x="40" y="160" font-family="Verdana" font-size="14" fill="#388E3C">{email}</text>
+      <path d="M320,180 Q340,160 360,180 T400,180" fill="none" stroke="#4CAF50" stroke-width="2"/>
     </svg>`,
     fields: ['name', 'title', 'phone', 'email']
   }

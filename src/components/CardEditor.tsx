@@ -46,6 +46,15 @@ const CardEditor: React.FC<CardEditorProps> = ({ selectedTemplate, elements, onU
     onAddElement(newElement);
   };
 
+  const handleFontSizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (selectedElementId) {
+      const element = elements.find(el => el.id === selectedElementId);
+      if (element) {
+        onUpdateElement({ ...element, fontSize: parseInt(e.target.value) });
+      }
+    }
+  };
+
   return (
     <div className="relative w-full h-[600px] border-2 border-gray-300 rounded-lg overflow-hidden">
       {selectedTemplate && (
@@ -105,6 +114,18 @@ const CardEditor: React.FC<CardEditorProps> = ({ selectedTemplate, elements, onU
           <SketchPicker
             color={elements.find(el => el.id === selectedElementId)?.color || '#000000'}
             onChangeComplete={handleColorChange}
+          />
+        </div>
+      )}
+      {selectedElementId && (
+        <div className="absolute bottom-4 left-4">
+          <input
+            type="range"
+            min="8"
+            max="72"
+            value={elements.find(el => el.id === selectedElementId)?.fontSize || 14}
+            onChange={handleFontSizeChange}
+            className="w-32"
           />
         </div>
       )}
