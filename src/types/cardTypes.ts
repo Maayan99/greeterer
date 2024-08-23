@@ -2,7 +2,7 @@ export interface CardTemplate {
   id: string;
   name: string;
   svg: string;
-  fields: string[];
+  fields: CardElement[];
 }
 
 export interface CardElement {
@@ -11,8 +11,8 @@ export interface CardElement {
   content: string;
   x: number;
   y: number;
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
   fontSize?: number;
   fontFamily?: string;
   color?: string;
