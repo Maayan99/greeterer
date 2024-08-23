@@ -1,29 +1,10 @@
 'use client'
 
-
 import React, { useState } from 'react';
 import TemplateSelection from '@/components/TemplateSelection';
 import CardEditor from '@/components/CardEditor';
 import SaveSendOptions from '@/components/SaveSendOptions';
-
-export interface CardElement {
-  id: string;
-  type: 'text' | 'image' | 'shape';
-  content: string;
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-  fontSize?: number;
-  color?: string;
-  backgroundColor?: string;
-}
-
-export interface CardTemplate {
-  id: string;
-  name: string;
-  elements: CardElement[];
-}
+import { CardElement, CardTemplate } from '@/types/cardTypes';
 
 export default function CardCreationPage() {
   const [selectedTemplate, setSelectedTemplate] = useState<CardTemplate | null>(null);
@@ -31,7 +12,19 @@ export default function CardCreationPage() {
 
   const handleTemplateSelection = (template: CardTemplate) => {
     setSelectedTemplate(template);
-    setCardElements(template.elements);
+    // Initialize card elements based on the template fields
+    const initialElements: CardElement[] = template.fields.map((field, index) => ({
+      id: `${field}-${Date.now()}`,
+      type: 'text',
+      content: `{${field}}`,
+      x: 10,
+      y: 10 + index * 30,
+      width: 200,
+      height: 30,
+      fontSize: 14,
+      color: '#000000',
+    }));
+    setCardElements(initialElements);
   };
 
   const handleElementUpdate = (updatedElement: CardElement) => {
@@ -46,13 +39,14 @@ export default function CardCreationPage() {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold text-center text-purple-800 mb-8">Create Your Card</h1>
+      <h1 className="text-3xl font-bold text-center text-purple-800 mb-8">Create Your Business Card</h1>
       <div className="flex flex-col lg:flex-row gap-8">
         <div className="lg:w-1/4">
           <TemplateSelection onSelectTemplate={handleTemplateSelection} />
         </div>
         <div className="lg:w-3/4">
           <CardEditor
+            selectedTemplate={selectedTemplate}
             elements={cardElements}
             onUpdateElement={handleElementUpdate}
             onAddElement={handleAddElement}
