@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Draggable from 'react-draggable';
 import { CardElement } from '../types/cardTypes';
-import { FaTrash, FaWhatsapp } from 'react-icons/fa';
+import { FaTrash, FaWhatsapp, FaTwitter } from 'react-icons/fa';
 import html2canvas from 'html2canvas';
 
 interface LivePreviewProps {
@@ -75,24 +75,33 @@ const LivePreview: React.FC<LivePreviewProps> = ({ elements, setElements, select
     );
   };
 
-  const downloadImage = async () => {
+  const generateImage = async (): Promise<string> => {
     if (previewRef.current) {
       const canvas = await html2canvas(previewRef.current);
-      const image = canvas.toDataURL('image/png');
-      const link = document.createElement('a');
-      link.href = image;
-      link.download = 'business-card.png';
-      link.click();
+      return canvas.toDataURL('image/png');
     }
+    return '';
   };
 
   const shareViaWhatsApp = async () => {
-    if (previewRef.current) {
-      const canvas = await html2canvas(previewRef.current);
-      const image = canvas.toDataURL('image/png');
-      const message = encodeURIComponent('Check out my new business card!');
-      window.open(`https://wa.me/?text=${message}&attachment=${image}`, '_blank');
-    }
+    const image = await generateImage();
+    const websiteLink = 'https://your-website-url.com';
+    const message = encodeURIComponent(`Check out my new business card! ${websiteLink}`);
+    const whatsappUrl = `https://api.whatsapp.com/send?text=${message}`;
+    
+    // Note: WhatsApp doesn't support direct image sharing via URL. 
+    // We'll open a new window with the message and link instead.
+    window.open(whatsappUrl, '_blank');
+  };
+
+  const shareViaTwitter = async () => {
+    const image = await generateImage();
+    const websiteLink = 'https://your-website-url.com';
+    const message = encodeURIComponent(`Check out my new business card! ${websiteLink}`);
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${message}`;
+    
+    // Open a new window with the tweet intent
+    window.open(twitterUrl, '_blank');
   };
 
   return (
@@ -159,16 +168,16 @@ const LivePreview: React.FC<LivePreviewProps> = ({ elements, setElements, select
       )}
       <div className="mt-4 flex justify-between items-center">
         <button
-          onClick={downloadImage}
-          className="px-6 py-3 bg-purple-600 text-white rounded-full font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out animate-pulse"
-        >
-          Save Design
-        </button>
-        <button
           onClick={shareViaWhatsApp}
           className="flex px-6 py-3 bg-green-600 text-white rounded-full font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out"
         >
           <FaWhatsapp className="mr-2" /> Share via WhatsApp
+        </button>
+        <button
+          onClick={shareViaTwitter}
+          className="flex px-6 py-3 bg-blue-400 text-white rounded-full font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out"
+        >
+          <FaTwitter className="mr-2" /> Share via Twitter
         </button>
         <div
           ref={trashcanRef}
