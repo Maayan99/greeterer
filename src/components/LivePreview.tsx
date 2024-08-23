@@ -85,7 +85,7 @@ const LivePreview: React.FC<LivePreviewProps> = ({ elements, setElements, select
 
   const handleShare = async () => {
     const image = await generateImage();
-    const websiteLink = 'https://your-website-url.com';
+    const websiteLink = 'https://greeterer.vercel.app';
     const blob = await (await fetch(image)).blob();
     const file = new File([blob], 'business-card.png', { type: 'image/png' });
 
