@@ -6,11 +6,21 @@ import CustomizationSidebar from '@/components/CustomizationSidebar';
 import LivePreview from '@/components/LivePreview';
 import SaveSendOptions from '@/components/SaveSendOptions';
 
+interface Element {
+  id: string;
+  type: string;
+  content: string;
+  x: number;
+  y: number;
+  fontSize: number;
+  color: string;
+}
+
 export default function CardCreationPage() {
-  const [elements, setElements] = useState([]);
+  const [elements, setElements] = useState<Element[]>([]);
 
   const handleAddElement = (type: string, content: string) => {
-    const newElement = {
+    const newElement: Element = {
       id: Date.now().toString(),
       type,
       content,
