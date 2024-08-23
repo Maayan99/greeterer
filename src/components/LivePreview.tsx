@@ -38,13 +38,16 @@ const LivePreview: React.FC<LivePreviewProps> = ({ elements, setElements, select
   };
 
   const isOverTrashcan = (data: { x: number; y: number }) => {
-    if (trashcanRef.current) {
+    if (trashcanRef.current && previewRef.current) {
       const trashcanRect = trashcanRef.current.getBoundingClientRect();
+      const previewRect = previewRef.current.getBoundingClientRect();
+      const relativeX = data.x + previewRect.left;
+      const relativeY = data.y + previewRect.top;
       return (
-        data.x > trashcanRect.left &&
-        data.x < trashcanRect.right &&
-        data.y > trashcanRect.top &&
-        data.y < trashcanRect.bottom
+        relativeX > trashcanRect.left &&
+        relativeX < trashcanRect.right &&
+        relativeY > trashcanRect.top &&
+        relativeY < trashcanRect.bottom
       );
     }
     return false;
@@ -93,7 +96,7 @@ const LivePreview: React.FC<LivePreviewProps> = ({ elements, setElements, select
   };
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md">
+    <div className="bg-white p-4 rounded-lg shadow-md relative">
       <h3 className="text-xl font-bold mb-4">Live Preview</h3>
       <div
         ref={previewRef}
@@ -169,7 +172,7 @@ const LivePreview: React.FC<LivePreviewProps> = ({ elements, setElements, select
         </button>
         <div
           ref={trashcanRef}
-          className="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center cursor-pointer"
+          className="absolute bottom-4 right-4 w-12 h-12 bg-red-500 rounded-full flex items-center justify-center cursor-pointer"
         >
           <FaTrash className="text-white" />
         </div>
