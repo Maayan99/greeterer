@@ -19,8 +19,13 @@ const CardEditor: React.FC<CardEditorProps> = ({
     <div>
       <LivePreview 
         elements={elements} 
-        setElements={(newElements: CardElement[]) => {
-          newElements.forEach(element => onUpdateElement(element));
+        setElements={(newElements: React.SetStateAction<CardElement[]>) => {
+          if (typeof newElements === 'function') {
+            const updatedElements = newElements(elements);
+            updatedElements.forEach(element => onUpdateElement(element));
+          } else {
+            newElements.forEach(element => onUpdateElement(element));
+          }
         }} 
       />
       {/* Add more customization tools here */}
