@@ -1,47 +1,38 @@
-import React, { useState } from 'react';
-import Image from 'next/image';
+import React from 'react';
+import { CardTemplate } from '../app/create/page';
 
-const categories = ['Birthday', 'Holiday', 'Anniversary'];
-const templates = {
-  Birthday: [
-    { id: 'b1', name: 'Birthday Blast', image: '/images/birthday-template-1.jpg' },
-    { id: 'b2', name: 'Cake Delight', image: '/images/birthday-template-2.jpg' },
-  ],
-  Holiday: [
-    { id: 'h1', name: 'Winter Wonderland', image: '/images/holiday-template-1.jpg' },
-    { id: 'h2', name: 'Festive Cheer', image: '/images/holiday-template-2.jpg' },
-  ],
-  Anniversary: [
-    { id: 'a1', name: 'Love Birds', image: '/images/anniversary-template-1.jpg' },
-    { id: 'a2', name: 'Golden Hearts', image: '/images/anniversary-template-2.jpg' },
-  ],
-};
+interface TemplateSelectionProps {
+  onSelectTemplate: (template: CardTemplate) => void;
+}
 
-const TemplateSelection: React.FC = () => {
-  const [activeCategory, setActiveCategory] = useState('Birthday');
+const templates: CardTemplate[] = [
+  {
+    id: 'template1',
+    name: 'Business Card',
+    elements: [
+      { id: 'name', type: 'text', content: 'Your Name', x: 10, y: 10, width: 200, height: 30, fontSize: 18, color: '#000000' },
+      { id: 'title', type: 'text', content: 'Your Title', x: 10, y: 50, width: 200, height: 20, fontSize: 14, color: '#666666' },
+      { id: 'phone', type: 'text', content: 'Phone: (123) 456-7890', x: 10, y: 80, width: 200, height: 20, fontSize: 12, color: '#333333' },
+      { id: 'email', type: 'text', content: 'email@example.com', x: 10, y: 110, width: 200, height: 20, fontSize: 12, color: '#333333' },
+    ],
+  },
+  // Add more templates here
+];
 
+const TemplateSelection: React.FC<TemplateSelectionProps> = ({ onSelectTemplate }) => {
   return (
-    <div className="mb-8">
+    <div>
       <h2 className="text-2xl font-bold mb-4">Choose a Template</h2>
-      <div className="flex space-x-4 mb-4">
-        {categories.map((category) => (
-          <button
-            key={category}
-            className={`px-4 py-2 rounded-full ${activeCategory === category ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-800'}`}
-            onClick={() => setActiveCategory(category)}
-          >
-            {category}
-          </button>
-        ))}
-      </div>
       <div className="grid grid-cols-2 gap-4">
-        {templates[activeCategory as keyof typeof templates].map((template) => (
-          <div key={template.id} className="relative group overflow-hidden rounded-lg shadow-lg">
-            <Image src={template.image} alt={template.name} width={200} height={300} className="w-full h-auto" />
-            <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <p className="text-white text-center font-bold">{template.name}</p>
-            </div>
-          </div>
+        {templates.map((template) => (
+          <button
+            key={template.id}
+            className="p-4 border rounded-lg hover:bg-gray-100 transition-colors duration-200"
+            onClick={() => onSelectTemplate(template)}
+          >
+            <h3 className="font-bold">{template.name}</h3>
+            {/* Add a preview of the template here */}
+          </button>
         ))}
       </div>
     </div>

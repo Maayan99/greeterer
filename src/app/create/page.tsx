@@ -1,35 +1,44 @@
-'use client'
-
 import React, { useState } from 'react';
 import TemplateSelection from '@/components/TemplateSelection';
-import CustomizationSidebar from '@/components/CustomizationSidebar';
-import LivePreview from '@/components/LivePreview';
+import CardEditor from '@/components/CardEditor';
 import SaveSendOptions from '@/components/SaveSendOptions';
 
-export interface Element {
+export interface CardElement {
   id: string;
-  type: string;
+  type: 'text' | 'image' | 'shape';
   content: string;
   x: number;
   y: number;
-  fontSize: number;
-  color: string;
+  width: number;
+  height: number;
+  fontSize?: number;
+  color?: string;
+  backgroundColor?: string;
+}
+
+export interface CardTemplate {
+  id: string;
+  name: string;
+  elements: CardElement[];
 }
 
 export default function CardCreationPage() {
-  const [elements, setElements] = useState<Element[]>([]);
+  const [selectedTemplate, setSelectedTemplate] = useState<CardTemplate | null>(null);
+  const [cardElements, setCardElements] = useState<CardElement[]>([]);
 
-  const handleAddElement = (type: string, content: string) => {
-    const newElement: Element = {
-      id: Date.now().toString(),
-      type,
-      content,
-      x: 0,
-      y: 0,
-      fontSize: 16,
-      color: '#000000'
-    };
-    setElements([...elements, newElement]);
+  const handleTemplateSelection = (template: CardTemplate) => {
+    setSelectedTemplate(template);
+    setCardElements(template.elements);
+  };
+
+  const handleElementUpdate = (updatedElement: CardElement) => {
+    setCardElements(prevElements =>
+      prevElements.map(el => el.id === updatedElement.id ? updatedElement : el)
+    );
+  };
+
+  const handleAddElement = (newElement: CardElement) => {
+    setCardElements(prevElements => [...prevElements, newElement]);
   };
 
   return (
@@ -37,11 +46,14 @@ export default function CardCreationPage() {
       <h1 className="text-3xl font-bold text-center text-purple-800 mb-8">Create Your Card</h1>
       <div className="flex flex-col lg:flex-row gap-8">
         <div className="lg:w-1/4">
-          <TemplateSelection />
-          <CustomizationSidebar onAddElement={handleAddElement} />
+          <TemplateSelection onSelectTemplate={handleTemplateSelection} />
         </div>
         <div className="lg:w-3/4">
-          <LivePreview elements={elements} setElements={setElements} />
+          <CardEditor
+            elements={cardElements}
+            onUpdateElement={handleElementUpdate}
+            onAddElement={handleAddElement}
+          />
           <SaveSendOptions />
         </div>
       </div>
