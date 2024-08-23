@@ -28,7 +28,7 @@ const FeaturedTemplates: React.FC = () => {
         ))}
       </div>
       <div className="text-center mt-8">
-        <Link href="/templates">
+        <Link href="/create">
           <button className="bg-purple-100 text-purple-800 font-bold py-2 px-4 rounded-full hover:bg-purple-200 transition-colors duration-200">
             View All Templates
           </button>

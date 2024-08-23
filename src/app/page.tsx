@@ -9,7 +9,6 @@ import VisualElement from '@/components/VisualElement';
 export default function Home() {
   return (
     <div className="container mx-auto p-4">
-      <HeroSection />
       <VisualElement />
       <FeaturedTemplates />
       <div className="text-center mt-12 space-y-6">

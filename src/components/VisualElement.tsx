@@ -11,7 +11,7 @@ const VisualElement: React.FC = () => {
     if (!ctx) return;
 
     let particles: Array<{ x: number; y: number; radius: number; color: string; vx: number; vy: number }> = [];
-    const particleCount = 50;
+    const particleCount = 20;
 
     const createParticle = () => {
       return {
