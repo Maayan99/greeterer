@@ -35,6 +35,28 @@ const DrawingTool: React.FC = () => {
       context.strokeStyle = color;
       context.lineTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
       context.stroke();
+
+      // Animate the brush stroke
+      const particle = document.createElement('div');
+      particle.style.width = `${brushSize}px`;
+      particle.style.height = `${brushSize}px`;
+      particle.style.backgroundColor = color;
+      particle.style.position = 'absolute';
+      particle.style.left = `${e.nativeEvent.offsetX}px`;
+      particle.style.top = `${e.nativeEvent.offsetY}px`;
+      particle.style.borderRadius = '50%';
+      particle.style.opacity = '0.5';
+      particle.style.transition = 'all 0.5s ease-out';
+      canvas?.parentNode?.appendChild(particle);
+
+      setTimeout(() => {
+        particle.style.transform = `translate(${(Math.random() - 0.5) * 20}px, ${(Math.random() - 0.5) * 20}px)`;
+        particle.style.opacity = '0';
+      }, 50);
+
+      setTimeout(() => {
+        particle.remove();
+      }, 550);
     }
   };
 
