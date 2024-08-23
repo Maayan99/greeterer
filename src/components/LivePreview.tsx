@@ -73,9 +73,7 @@ const LivePreview: React.FC<LivePreviewProps> = ({ elements, setElements }) => {
                   className="bg-transparent resize-none outline-none"
                 />
               )}
-              {element.type === 'sticker' && (
-                <div dangerouslySetInnerHTML={{ __html: element.content }} />
-              )}
+            
             </div>
           </Draggable>
         ))}
