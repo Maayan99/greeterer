@@ -1,15 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Draggable from 'react-draggable';
-
-interface Element {
-  id: string;
-  type: string;
-  content: string;
-  x: number;
-  y: number;
-  fontSize?: number;
-  color?: string;
-}
+import { Element } from '../app/create/page';
 
 interface LivePreviewProps {
   elements: Element[];

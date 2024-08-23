@@ -6,7 +6,7 @@ import CustomizationSidebar from '@/components/CustomizationSidebar';
 import LivePreview from '@/components/LivePreview';
 import SaveSendOptions from '@/components/SaveSendOptions';
 
-interface Element {
+export interface Element {
   id: string;
   type: string;
   content: string;
