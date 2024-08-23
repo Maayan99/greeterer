@@ -14,15 +14,15 @@ export default function CardCreationPage() {
     setSelectedTemplate(template);
     // Initialize card elements based on the template fields
     const initialElements: CardElement[] = template.fields.map((field, index) => ({
-      id: `${field}-${Date.now()}`,
+      id: `${field.id}-${Date.now()}`,
       type: 'text',
-      content: `{${field}}`,
-      x: 10,
-      y: 10 + index * 30,
+      content: `{${field.id}}`,
+      x: field.x,
+      y: field.y,
       width: 200,
       height: 30,
-      fontSize: 14,
-      color: '#000000',
+      fontSize: field.fontSize || 14,
+      color: field.color || '#000000',
     }));
     setCardElements(initialElements);
   };
@@ -39,7 +39,7 @@ export default function CardCreationPage() {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold text-center text-purple-800 mb-8">Create Your Business Card</h1>
+      <h1 className="text-3xl font-bold text-center text-purple-800 mb-8">Create Your Greeting Card</h1>
       <div className="flex flex-col lg:flex-row gap-8">
         <div className="lg:w-1/4">
           <TemplateSelection onSelectTemplate={handleTemplateSelection} />
