@@ -7,9 +7,10 @@ import html2canvas from 'html2canvas';
 interface LivePreviewProps {
   elements: CardElement[];
   setElements: React.Dispatch<React.SetStateAction<CardElement[]>>;
+  selectedTemplate: { svg: string } | null;
 }
 
-const LivePreview: React.FC<LivePreviewProps> = ({ elements, setElements }) => {
+const LivePreview: React.FC<LivePreviewProps> = ({ elements, setElements, selectedTemplate }) => {
   const [selectedElement, setSelectedElement] = useState<string | null>(null);
   const [zoom, setZoom] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
@@ -99,6 +100,12 @@ const LivePreview: React.FC<LivePreviewProps> = ({ elements, setElements }) => {
         className={`relative w-full h-96 border-2 border-dashed border-gray-300 rounded-lg overflow-hidden ${zoom ? 'scale-105' : ''} transition-transform duration-300`}
         style={{ backgroundColor: '#f0f0f0' }}
       >
+        {selectedTemplate && (
+          <div
+            className="absolute inset-0"
+            dangerouslySetInnerHTML={{ __html: selectedTemplate.svg }}
+          />
+        )}
         {elements.map((element) => (
           <Draggable
             key={element.id}
