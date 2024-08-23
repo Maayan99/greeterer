@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Draggable from 'react-draggable';
-import { CardElement } from '../app/create/page';
+import CardElement from '../app/create/page';
 
 interface LivePreviewProps {
   elements: CardElement[];
