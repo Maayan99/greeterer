@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Draggable from 'react-draggable';
 import { CardElement } from '../types/cardTypes';
-import { FaTrash, FaDownload, FaShare } from 'react-icons/fa';
+import { FaTrash, FaDownload } from 'react-icons/fa';
 import html2canvas from 'html2canvas';
 
 interface LivePreviewProps {
@@ -75,6 +75,12 @@ const LivePreview: React.FC<LivePreviewProps> = ({ elements, setElements, select
     );
   };
 
+  const handleSvgElementChange = (id: string, newContent: string) => {
+    setElements(prevElements =>
+      prevElements.map(el => el.id === id ? { ...el, content: newContent } : el)
+    );
+  };
+
   const generateImage = async (): Promise<string> => {
     if (previewRef.current) {
       const canvas = await html2canvas(previewRef.current);
@@ -89,26 +95,6 @@ const LivePreview: React.FC<LivePreviewProps> = ({ elements, setElements, select
     link.href = image;
     link.download = 'business-card.png';
     link.click();
-  };
-
-  const handleShare = async () => {
-    const image = await generateImage();
-    const websiteLink = 'https://greeterer.vercel.app';
-
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: 'My Business Card',
-          text: `Check out my new business card created with ${websiteLink}!`,
-          url: image
-        });
-      } catch (error) {
-        console.error('Error sharing:', error);
-        alert('Sharing failed. Please try downloading the image instead.');
-      }
-    } else {
-      alert('Sharing is not supported on this device. Please try downloading the image instead.');
-    }
   };
 
   return (
@@ -149,6 +135,8 @@ const LivePreview: React.FC<LivePreviewProps> = ({ elements, setElements, select
                 <div 
                   dangerouslySetInnerHTML={{ __html: element.content }} 
                   style={{ width: '100%', height: '100%' }}
+                  contentEditable
+                  onBlur={(e) => handleSvgElementChange(element.id, e.currentTarget.innerHTML)}
                 />
               )}
             </div>
@@ -179,12 +167,6 @@ const LivePreview: React.FC<LivePreviewProps> = ({ elements, setElements, select
           className="flex px-4 py-2 bg-blue-600 text-white rounded-full font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out mr-2"
         >
           <FaDownload className="mr-2" /> Download
-        </button>
-        <button
-          onClick={handleShare}
-          className="flex px-4 py-2 bg-green-600 text-white rounded-full font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out"
-        >
-          <FaShare className="mr-2" /> Share
         </button>
         <div
           ref={trashcanRef}
