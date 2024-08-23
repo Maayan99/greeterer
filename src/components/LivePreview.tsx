@@ -135,6 +135,14 @@ const LivePreview: React.FC<LivePreviewProps> = ({ elements, setElements, select
     return '';
   };
 
+  const handleDownload = async () => {
+    const image = await generateImage();
+    const link = document.createElement('a');
+    link.href = image;
+    link.download = 'business-card.png';
+    link.click();
+  };
+
   return (
     <div className="bg-white p-4 rounded-lg shadow-md relative">
       <h3 className="text-xl font-bold mb-4">Live Preview</h3>
@@ -257,6 +265,12 @@ const LivePreview: React.FC<LivePreviewProps> = ({ elements, setElements, select
       >
         <FaTrash className="text-white" />
       </div>
+      <button
+        onClick={handleDownload}
+        className="mt-4 bg-green-500 text-white px-4 py-2 rounded"
+      >
+        Download Card
+      </button>
     </div>
   );
 };
