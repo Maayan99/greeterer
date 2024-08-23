@@ -1,5 +1,3 @@
-'use client'
-
 import React, { useState } from 'react';
 import TemplateSelection from '@/components/TemplateSelection';
 import CardEditor from '@/components/CardEditor';

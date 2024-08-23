@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Draggable from 'react-draggable';
-import Element from '../app/create/page';
+import { CardElement } from '../app/create/page';
 
 interface LivePreviewProps {
-  elements: Element[];
-  setElements: React.Dispatch<React.SetStateAction<Element[]>>;
+  elements: CardElement[];
+  setElements: React.Dispatch<React.SetStateAction<CardElement[]>>;
 }
 
 const LivePreview: React.FC<LivePreviewProps> = ({ elements, setElements }) => {
