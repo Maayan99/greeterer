@@ -17,6 +17,12 @@ const CardEditor: React.FC<CardEditorProps> = ({
 }) => {
   return (
     <div>
+      {selectedTemplate && (
+        <div 
+          className="mb-4 w-full h-48 bg-gray-100 rounded-lg overflow-hidden"
+          dangerouslySetInnerHTML={{ __html: selectedTemplate.svg }}
+        />
+      )}
       <LivePreview 
         elements={elements} 
         setElements={(newElements: React.SetStateAction<CardElement[]>) => {

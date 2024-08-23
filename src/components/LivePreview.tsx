@@ -97,7 +97,7 @@ const LivePreview: React.FC<LivePreviewProps> = ({ elements, setElements }) => {
       <div
         ref={previewRef}
         className={`relative w-full h-96 border-2 border-dashed border-gray-300 rounded-lg overflow-hidden ${zoom ? 'scale-105' : ''} transition-transform duration-300`}
-        style={{ backgroundColor: '#f0f0f0' }} // Add a background color to make SVG visible
+        style={{ backgroundColor: '#f0f0f0' }}
       >
         {elements.map((element) => (
           <Draggable
@@ -122,7 +122,7 @@ const LivePreview: React.FC<LivePreviewProps> = ({ elements, setElements }) => {
               {element.type === 'svg' && (
                 <div 
                   dangerouslySetInnerHTML={{ __html: element.content }} 
-                  style={{ width: '100%', height: '100%' }} // Ensure SVG fills its container
+                  style={{ width: '100%', height: '100%' }}
                 />
               )}
             </div>
