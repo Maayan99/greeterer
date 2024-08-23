@@ -9,6 +9,7 @@ interface LivePreviewProps {
   setElements: React.Dispatch<React.SetStateAction<CardElement[]>>;
 }
 
+
 const LivePreview: React.FC<LivePreviewProps> = ({ elements, setElements }) => {
   const [selectedElement, setSelectedElement] = useState<string | null>(null);
   const [zoom, setZoom] = useState(false);
